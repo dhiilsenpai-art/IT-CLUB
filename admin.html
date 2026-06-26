@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>Dashboard Admin</title></head>
+<body>
+    <h1>Daftar Pendaftar</h1>
+    <table border="1">
+        <thead>
+            <tr><th>Nama</th><th>Kelas</th><th>Divisi</th></tr>
+        </thead>
+        <tbody id="admin-table"></tbody>
+    </table>
+
+    <script type="module">
+        // Inisialisasi Firebase sama seperti di index.html
+        import { getDocs, collection } from "..."; 
+        
+        const querySnapshot = await getDocs(collection(db, "pendaftar"));
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            document.getElementById('admin-table').innerHTML += 
+                `<tr><td>${data.nama}</td><td>${data.kelas}</td></tr>`;
+        });
+    </script>
+</body>
+</html>
