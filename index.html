@@ -257,6 +257,62 @@
                 100% { transform: rotate(360deg) translateX(140px) rotate(-360deg); }
             }
         }
+
+                    /* Gaya Kartu Pilihan Divisi */
+            .divisi-selector {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 10px;
+                margin-top: 10px;
+            }
+            
+            .divisi-selector input {
+                display: none; /* Menyembunyikan tombol radio asli */
+            }
+            
+            .card-option {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 15px 5px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 2px solid rgba(255, 255, 255, 0.2);
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                position: relative;
+                text-align: center;
+            }
+            
+            .card-option .icon {
+                font-size: 1.5rem;
+                margin-bottom: 5px;
+            }
+            
+            .card-option .checkmark {
+                display: none; /* Centang disembunyikan secara default */
+                font-weight: bold;
+                color: var(--accent-color);
+                margin-top: 5px;
+            }
+            
+            /* Kondisi saat dipilih (Checked) */
+            .divisi-selector input:checked + .card-option {
+                border-color: var(--accent-color);
+                background: rgba(0, 255, 255, 0.1);
+            }
+            
+            .divisi-selector input:checked + .card-option .checkmark {
+                display: block; /* Menampilkan centang saat dipilih */
+            }
+            
+            /* Responsif untuk Mobile */
+            @media (max-width: 600px) {
+                .divisi-selector {
+                    grid-template-columns: 1fr; /* Jadi satu baris ke bawah */
+                }
+            }
     </style>
 </head>
 <body>
@@ -366,12 +422,30 @@
                     <textarea class="form-control" required placeholder="Tuliskan motivasi kamu bergabung..."></textarea>
                 </div>
 
+               <!-- BAGIAN DIVISI REVISI -->
                 <div class="form-group">
                     <label>Divisi yang Diinginkan</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="divisi" value="Hardware" required> Hardware</label>
-                        <label><input type="radio" name="divisi" value="Software" required> Software</label>
-                        <label><input type="radio" name="divisi" value="Multimedia" required> Multimedia</label>
+                    <div class="divisi-selector">
+                        <input type="radio" name="divisi" id="hardware" value="Hardware" required>
+                        <label for="hardware" class="card-option">
+                            <span class="icon">⚙️</span>
+                            <span>Hardware</span>
+                            <span class="checkmark">✓</span>
+                        </label>
+                
+                        <input type="radio" name="divisi" id="software" value="Software" required>
+                        <label for="software" class="card-option">
+                            <span class="icon">💻</span>
+                            <span>Software</span>
+                            <span class="checkmark">✓</span>
+                        </label>
+                
+                        <input type="radio" name="divisi" id="multimedia" value="Multimedia" required>
+                        <label for="multimedia" class="card-option">
+                            <span class="icon">🎨</span>
+                            <span>Multimedia</span>
+                            <span class="checkmark">✓</span>
+                        </label>
                     </div>
                 </div>
 
