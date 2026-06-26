@@ -11,7 +11,6 @@
             --primary-color: #0B192C; /* Biru Navy (Warna latar logo) */
             --secondary-color: #FFFFFF; /* Putih */
             --accent-color: #00FFFF; /* Biru Elektrik/Sian */
-            --dark-overlay: rgba(11, 25, 44, 0.8);
         }
 
         /* === RESET & GLOBAL === */
@@ -27,21 +26,15 @@
             background-color: var(--primary-color);
             color: var(--secondary-color);
             line-height: 1.6;
-            /* Pola titik sebagai pengganti sirkuit sementara */
             background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
             background-size: 20px 20px;
+            overflow-x: hidden; /* Mencegah geser ke samping jika orbit terlalu lebar di HP */
         }
 
-        h1, h2, h3 {
-            font-family: 'Poppins', sans-serif;
-        }
+        h1, h2, h3 { font-family: 'Poppins', sans-serif; }
+        a { text-decoration: none; color: var(--secondary-color); }
 
-        a {
-            text-decoration: none;
-            color: var(--secondary-color);
-        }
-
-        /* === 3.1 HEADER / NAVBAR (Glassmorphism) === */
+        /* === 3.1 HEADER / NAVBAR === */
         nav {
             position: fixed;
             top: 0;
@@ -77,19 +70,9 @@
             font-size: 0.6rem;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-
-        .nav-links a {
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { font-weight: 600; transition: color 0.3s ease; }
+        .nav-links a:hover { color: var(--accent-color); }
 
         /* === TOMBOL CTA === */
         .btn-cta {
@@ -104,13 +87,12 @@
             transition: all 0.3s ease;
             display: inline-block;
         }
-
         .btn-cta:hover {
             box-shadow: 0 0 15px var(--accent-color);
             transform: translateY(-2px);
         }
 
-        /* === KONTEN UMUM (SECTION) === */
+        /* === KONTEN UMUM === */
         section {
             padding: 100px 10%;
             min-height: 100vh;
@@ -119,7 +101,7 @@
             justify-content: center;
         }
 
-        /* === 3.2 HERO SECTION === */
+        /* === 3.2 HERO SECTION (DENGAN ANIMASI ORBIT) === */
         #beranda {
             flex-direction: row;
             align-items: center;
@@ -127,91 +109,87 @@
             margin-top: 50px;
         }
 
-        .hero-text {
-            max-width: 60%;
-        }
+        .hero-text { max-width: 50%; }
+        .hero-text h1 { font-size: 3.5rem; margin-bottom: 15px; line-height: 1.2; }
+        .hero-text h1 span { color: var(--accent-color); }
+        .hero-text p { font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9; }
 
-        .hero-text h1 {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            line-height: 1.2;
-        }
-
-        .hero-text h1 span {
-            color: var(--accent-color);
-        }
-
-        .hero-text p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        .hero-image {
+        /* Wadah Utama Orbit */
+        .hero-image-container {
+            position: relative;
             width: 300px;
             height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 50px;
+        }
+
+        /* Logo Bumi (Tengah) */
+        .hero-image {
+            width: 100%;
+            height: 100%;
             background-color: #fff;
             border-radius: 50%;
-            /* Animasi Melayang */
-            animation: float 4s ease-in-out infinite;
             display: flex;
             justify-content: center;
             align-items: center;
             color: var(--primary-color);
             font-weight: bold;
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+            z-index: 2;
         }
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-
-        /* === 3.3 TENTANG KAMI & VISI MISI === */
-        #tentang {
-            background-color: rgba(0,0,0,0.2);
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            text-align: center;
-            color: var(--accent-color);
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 30px;
-        }
-
-        .mission-list {
-            list-style: none;
-        }
-
-        .mission-list li {
-            margin-bottom: 15px;
+        /* Item Bulan (Komputer, CPU, Multimedia) */
+        .orbit-item {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            margin-top: -30px; /* Menengahkan posisi secara vertikal */
+            margin-left: -30px; /* Menengahkan posisi secara horizontal */
+            background: rgba(11, 25, 44, 0.9);
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
             display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 10px;
+            font-size: 1.5rem; /* Ukuran ikon */
+            box-shadow: 0 0 15px var(--accent-color);
+            z-index: 3;
+            animation: orbit-anim 12s linear infinite;
         }
 
-        .mission-list li::before {
-            content: '✓';
-            color: var(--accent-color);
-            font-weight: bold;
+        /* Gambar di dalam orbit jika menggunakan foto asli */
+        .orbit-item img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
         }
+
+        /* Penempatan jarak waktu orbit agar tidak menumpuk (3 item dibagi rata = 12s / 3 = 4s) */
+        .item-1 { animation-delay: 0s; }    /* CPU/Hardware */
+        .item-2 { animation-delay: -4s; }   /* Komputer/Software */
+        .item-3 { animation-delay: -8s; }   /* Multimedia */
+
+        /* Animasi mengitari dengan jarak (radius) 220px dari pusat */
+        @keyframes orbit-anim {
+            0% { transform: rotate(0deg) translateX(220px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(220px) rotate(-360deg); }
+        }
+
+        /* === 3.3 TENTANG KAMI === */
+        #tentang { background-color: rgba(0,0,0,0.2); }
+        .section-title { font-size: 2.5rem; margin-bottom: 20px; text-align: center; color: var(--accent-color); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; }
+        .mission-list { list-style: none; }
+        .mission-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .mission-list li::before { content: '✓'; color: var(--accent-color); font-weight: bold; }
 
         /* === 3.4 DIVISI === */
-        .cards-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 40px;
-        }
-
+        .cards-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
         .card {
             background: rgba(255, 255, 255, 0.05);
             padding: 30px;
@@ -220,28 +198,16 @@
             transition: all 0.3s ease;
             text-align: center;
         }
-
         .card:hover {
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
             border-color: var(--accent-color);
             transform: translateY(-5px);
         }
+        .card h3 { margin: 15px 0; color: var(--accent-color); }
+        .card-icon { font-size: 3rem; }
 
-        .card h3 {
-            margin: 15px 0;
-            color: var(--accent-color);
-        }
-
-        .card-icon {
-            font-size: 3rem;
-        }
-
-        /* === 3.5 FORMULIR PENDAFTARAN === */
-        #daftar {
-            background-color: rgba(0,0,0,0.2);
-            align-items: center;
-        }
-
+        /* === 3.5 FORMULIR === */
+        #daftar { background-color: rgba(0,0,0,0.2); align-items: center; }
         .form-container {
             width: 100%;
             max-width: 600px;
@@ -250,17 +216,8 @@
             border-radius: 10px;
             border: 1px solid rgba(255,255,255,0.1);
         }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
         .form-control {
             width: 100%;
             padding: 12px;
@@ -270,33 +227,11 @@
             color: #fff;
             font-family: 'Inter', sans-serif;
         }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--accent-color);
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .radio-group {
-            display: flex;
-            gap: 20px;
-        }
-
-        /* Halaman Sukses Redirect */
-        #success-message {
-            display: none;
-            text-align: center;
-            padding: 50px 20px;
-        }
-
-        #success-message h2 {
-            color: var(--accent-color);
-            margin-bottom: 15px;
-        }
+        .form-control:focus { outline: none; border-color: var(--accent-color); }
+        textarea.form-control { resize: vertical; min-height: 100px; }
+        .radio-group { display: flex; gap: 20px; }
+        #success-message { display: none; text-align: center; padding: 50px 20px; }
+        #success-message h2 { color: var(--accent-color); margin-bottom: 15px; }
 
         /* === 3.6 FOOTER === */
         footer {
@@ -305,33 +240,21 @@
             text-align: center;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .footer-content {
-            margin-bottom: 20px;
-        }
+        .footer-content { margin-bottom: 20px; }
 
         /* === RESPONSIVE === */
         @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                padding: 15px;
-                gap: 15px;
-            }
-            #beranda {
-                flex-direction: column-reverse;
-                text-align: center;
-                padding-top: 150px;
-            }
-            .hero-text {
-                max-width: 100%;
-                margin-top: 30px;
-            }
-            .about-grid, .cards-container {
-                grid-template-columns: 1fr;
-            }
-            .radio-group {
-                flex-direction: column;
-                gap: 10px;
+            nav { flex-direction: column; padding: 15px; gap: 15px; }
+            #beranda { flex-direction: column-reverse; text-align: center; padding-top: 150px; overflow: hidden; }
+            .hero-text { max-width: 100%; margin-top: 60px; }
+            .about-grid, .cards-container { grid-template-columns: 1fr; }
+            .radio-group { flex-direction: column; gap: 10px; }
+            
+            /* Penyesuaian Orbit untuk Layar HP agar tidak terpotong */
+            .hero-image-container { margin-right: 0; width: 180px; height: 180px; }
+            @keyframes orbit-anim {
+                0% { transform: rotate(0deg) translateX(140px) rotate(0deg); }
+                100% { transform: rotate(360deg) translateX(140px) rotate(-360deg); }
             }
         }
     </style>
@@ -357,8 +280,17 @@
             <p>Membangun Generasi Digital Masa Depan.</p>
             <a href="#daftar" class="btn-cta">Daftar Sekarang</a>
         </div>
-        <div class="hero-image">
-            [ Gambar Logo Besar ]
+        
+        <div class="hero-image-container">
+            <div class="orbit-item item-1">⚙️</div>
+            
+            <div class="orbit-item item-2">💻</div>
+            
+            <div class="orbit-item item-3">🎨</div>
+
+            <div class="hero-image">
+                [ Ganti Teks ini dengan Gambar Logo Utama ]
+            </div>
         </div>
     </section>
 
@@ -385,19 +317,19 @@
         <h2 class="section-title">Program Peminatan</h2>
         <div class="cards-container">
             <div class="card">
-                <div class="card-icon">🖥️</div>
+                <div class="card-icon">⚙️</div>
                 <h3>Hardware</h3>
-                <p>Mempelajari fondasi fisik teknologi. Fokus pada perakitan komputer, pemeliharaan (maintenance), troubleshooting kerusakan, serta dasar jaringan komputer (Networking).</p>
+                <p>Mempelajari fondasi fisik teknologi. Fokus pada perakitan komputer, pemeliharaan, troubleshooting, serta dasar jaringan komputer.</p>
             </div>
             <div class="card">
                 <div class="card-icon">💻</div>
                 <h3>Software</h3>
-                <p>Mengasah logika melalui coding. Fokus pada dasar pemrograman, pembuatan algoritma, serta pengembangan aplikasi atau website.</p>
+                <p>Mengasah logika melalui coding. Fokus pada dasar pemrograman, algoritma, serta pengembangan aplikasi atau website.</p>
             </div>
             <div class="card">
                 <div class="card-icon">🎨</div>
                 <h3>Multimedia</h3>
-                <p>Tempat berekspresi secara visual. Fokus pada desain grafis, penyuntingan video (video editing), animasi, serta perancangan antarmuka (UI/UX).</p>
+                <p>Tempat berekspresi secara visual. Fokus pada desain grafis, video editing, animasi, serta perancangan antarmuka.</p>
             </div>
         </div>
     </section>
@@ -458,7 +390,6 @@
     <script>
         document.getElementById('recruitment-form').addEventListener('submit', function(e) {
             e.preventDefault(); 
-            
             document.getElementById('form-area').style.display = 'none';
             document.getElementById('success-message').style.display = 'block';
         });
