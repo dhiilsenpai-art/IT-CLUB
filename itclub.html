@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Recruitment IT Club Smancis</title>
+    <!-- Google Fonts: Poppins (Header) & Inter (Body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        /* === VARIABEL WARNA & TEMA === */
+        :root {
+            --primary-color: #0B192C; /* Biru Navy (Warna latar logo) */
+            --secondary-color: #FFFFFF; /* Putih */
+            --accent-color: #00FFFF; /* Biru Elektrik/Sian */
+            --dark-overlay: rgba(11, 25, 44, 0.8);
+        }
+
+        /* === RESET & GLOBAL === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            line-height: 1.6;
+            /* Pola titik sebagai pengganti sirkuit sementara. Ganti URL dengan gambar pola sirkuit transparan (5-10%) */
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--secondary-color);
+        }
+
+        /* === 3.1 HEADER / NAVBAR (Glassmorphism) === */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(11, 25, 44, 0.6);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Tempat logo navbar */
+        .logo-nav {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary-color);
+            font-size: 0.6rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* === TOMBOL CTA === */
+        .btn-cta {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-cta:hover {
+            box-shadow: 0 0 15px var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        /* === KONTEN UMUM (SECTION) === */
+        section {
+            padding: 100px 10%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* === 3.2 HERO SECTION === */
+        #beranda {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+
+        .hero-text {
+            max-width: 60%;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .hero-text h1 span {
+            color: var(--accent-color);
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .hero-image {
+            width: 300px;
+            height: 300px;
+            background-color: #fff;
+            border-radius: 50%;
+            /* Animasi Melayang */
+            animation: float 4s ease-in-out infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary-color);
+            font-weight: bold;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* === 3.3 TENTANG KAMI & VISI MISI === */
+        #tentang {
+            background-color: rgba(0,0,0,0.2);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--accent-color);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .mission-list {
+            list-style: none;
+        }
+
+        .mission-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mission-list li::before {
+            content: '✓';
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* === 3.4 DIVISI (Program Peminatan) === */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            margin: 15px 0;
+            color: var(--accent-color);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+        }
+
+        /* === 3.5 FORMULIR PENDAFTARAN === */
+        #daftar {
+            background-color: rgba(0,0,0,0.2);
+            align-items: center;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.2);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Halaman Sukses Redirect */
+        #success-message {
+            display: none;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        #success-message h2 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        /* === 3.6 FOOTER === */
+        footer {
+            background-color: rgba(0,0,0,0.5);
+            padding: 40px 10%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            margin-bottom: 20px;
+        }
+
+        /* === RESPONSIVE (HP & Tablet) === */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 15px;
+                gap: 15px;
+            }
+            #beranda {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding-top: 150px;
+            }
+            .hero-text {
+                max-width: 100%;
+                margin-top: 30px;
+            }
+            .about-grid, .cards-container {
+                grid-template-columns: 1fr;
+            }
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 3.1 HEADER / NAVBAR -->
+    <nav>
+        <div class="logo-container">
+            <!-- Ganti elemen ini dengan tag <img> untuk logo asli -->
+            <div class="logo-nav">LOGO</div>
+            IT Club Smancis
+        </div>
+        <div class="nav-links">
+            <a href="#beranda">Beranda</a>
+            <a href="#tentang">Tentang</a>
+            <a href="#divisi">Divisi</a>
+            <a href="#daftar">Daftar</a>
+        </div>
+    </nav>
+
+    <!-- 3.2 HERO SECTION -->
+    <section id="beranda">
+        <div class="hero-text">
+            <h1>Open Recruitment<br><span>IT Club Smancis</span></h1>
+            <p>Membangun Generasi Digital Masa Depan.</p>
+            <a href="#daftar" class="btn-cta">Daftar Sekarang</a>
+        </div>
+        <div class="hero-image">
+            <!-- Ganti tulisan ini dengan tag <img> logomu -->
+            [ Gambar Logo Besar ]
+        </div>
+    </section>
+
+    <!-- 3.3 TENTANG KAMI & VISI MISI -->
+    <section id="tentang">
+        <h2 class="section-title">Tentang IT Club</h2>
+        <div class="about-grid">
+            <div>
+                <h3>Siapa Kami?</h3>
+                <p>IT Club Smancis adalah wadah kreativitas, inovasi teknologi, dan pengembangan talenta digital siswa. Kami memfasilitasi minat dan bakat di bidang teknologi informasi secara profesional dan menyenangkan.</p>
+            </div>
+            <div>
+                <h3>Visi & Misi</h3>
+                <p><strong>Visi:</strong> Menjadi pusat pengembangan talenta digital yang inovatif dan kompeten di lingkungan SMA Negeri 1 Cisayong.</p>
+                <ul class="mission-list">
+                    <li>Menyediakan pelatihan IT terpadu</li>
+                    <li>Mendorong kolaborasi karya digital</li>
+                    <li>Mengikuti kompetisi teknologi pelajar</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3.4 DIVISI -->
+    <section id="divisi">
+        <h2 class="section-title">Program Peminatan</h2>
+        <div class="cards-container">
+            <div class="card">
+                <div class="card-icon">🖥️</div>
+                <h3>Hardware</h3>
+                <p>Mempelajari fondasi fisik teknologi. Fokus pada perakitan komputer, pemeliharaan (maintenance), troubleshooting kerusakan, serta dasar jaringan komputer (Networking).</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">💻</div>
+                <h3>Software</h3>
+                <p>Mengasah logika melalui coding. Fokus pada dasar pemrograman, pembuatan algoritma, serta pengembangan aplikasi atau website.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎨</div>
+                <h3>Multimedia</h3>
+                <p>Tempat berekspresi secara visual. Fokus pada desain grafis, penyuntingan video (video editing), animasi, serta perancangan antarmuka (UI/UX).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3.5 FORMULIR PENDAFTARAN -->
+    <section id="daftar">
+        <h2 class="section-title">Formulir Pendaftaran</h2>
+        
+        <!-- Form Area -->
+        <div class="form-container" id="form-area">
+            <form id="recruitment-form">
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" class="form-control" required placeholder="Masukkan nama lengkap">
+                </div>
+                
+                <div class="form-group">
+                    <label>Kelas</label>
+                    <select class="form-control" required>
+                        <option value="">-- Pilih Kelas --</option>
+                        <option value="X">Kelas X</option>
+                        <option value="XI">Kelas XI</option>
+                        <option value="XII">Kelas XII</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Alasan Masuk IT Club</label>
+                    <textarea class="form-control" required placeholder="Tuliskan motivasi kamu bergabung..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Divisi yang Diinginkan</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="divisi" value="Hardware" required> Hardware</label>
+                        <label><input type="radio" name="divisi" value="Software" required> Software</label>
+                        <label><input type="radio" name="divisi" value="Multimedia" required> Multimedia</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Alasan Memilih Divisi Tersebut</label>
+                    <textarea class="form-control" required placeholder="Mengapa kamu memilih divisi ini?"></textarea>
+                </div>
+
+                <button type="submit" class="btn-cta" style="width: 100%;">Kirim Pendaftaran</button>
+            </form>
+        </div>
+
+        <!-- Pesan Sukses (Tersembunyi secara default) -->
+        <div class="form-container" id="success-message">
+            <h2>Pendaftaran Berhasil! 🎉</h2>
+            <p style="margin-bottom: 25px;">Selamat bergabung calon anggota IT Club Smancis. Langkah selanjutnya adalah bergabung ke grup komunikasi resmi panitia.</p>
+            <!-- Ganti href dengan link grup WhatsApp/Telegram panitia yang asli -->
+            <a href="https://chat.whatsapp.com/xxxxxx" target="_blank" class="btn-cta">Gabung Grup Chat Sekarang</a>
+        </div>
+    </section>
+
+    <!-- 3.6 FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <h3 style="color: var(--accent-color); margin-bottom: 10px;">IT Club SMA Negeri 1 Cisayong</h3>
+            <p>Hubungi Panitia: <a href="https://wa.me/6281234567890" style="color: var(--accent-color);">WhatsApp</a> | <a href="#" style="color: var(--accent-color);">Instagram</a></p>
+        </div>
+        <p style="font-size: 0.9rem; opacity: 0.7;">&copy; 2026 IT Club SMA Negeri 1 Cisayong. All rights reserved.</p>
+    </footer>
+
+    <!-- JAVASCRIPT UNTUK ALUR LANJUTAN (Validasi & Pesan Sukses) -->
+    <script>
+        document.getElementById('recruitment-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Mencegah reload halaman
+            
+            // Logika menyimpan data ke database biasanya diletakkan di sini.
+            
+            // Menyembunyikan form dan memunculkan pesan sukses (Redirect Otomatis)
+            document.getElementById('form-area').style.display = 'none';
+            document.getElementById('success-message').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
