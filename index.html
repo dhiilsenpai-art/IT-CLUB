@@ -478,6 +478,43 @@
             document.getElementById('form-area').style.display = 'none';
             document.getElementById('success-message').style.display = 'block';
         });
+
+        // Tambahkan script ini (Firebase SDK)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyABi4QZmacUXhbyRwQ7TANtLoghLtVc54I",
+  authDomain: "itclub-recruitment.firebaseapp.com",
+  projectId: "itclub-recruitment",
+  storageBucket: "itclub-recruitment.firebasestorage.app",
+  messagingSenderId: "926094283725",
+  appId: "1:926094283725:web:98c36c9fbfb6ca6289ea84",
+  measurementId: "G-05ME8E8M03"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Ubah fungsi submit form
+document.getElementById('recruitment-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Ambil data dari form
+    const nama = e.target[0].value;
+    const kelas = e.target[1].value;
+    // ... ambil data lainnya
+    
+    // Simpan ke database
+    await addDoc(collection(db, "pendaftar"), {
+        nama: nama,
+        kelas: kelas,
+        timestamp: new Date()
+    });
+    
+    alert("Berhasil!");
+});
+        
     </script>
 </body>
 </html>
