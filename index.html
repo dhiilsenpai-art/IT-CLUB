@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open Recruitment IT Club Smancis</title>
-    <!-- Google Fonts: Poppins (Header) & Inter (Body) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
     <style>
         /* === VARIABEL WARNA & TEMA === */
@@ -28,7 +27,7 @@
             background-color: var(--primary-color);
             color: var(--secondary-color);
             line-height: 1.6;
-            /* Pola titik sebagai pengganti sirkuit sementara. Ganti URL dengan gambar pola sirkuit transparan (5-10%) */
+            /* Pola titik sebagai pengganti sirkuit sementara */
             background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
             background-size: 20px 20px;
         }
@@ -66,7 +65,6 @@
             font-size: 1.2rem;
         }
 
-        /* Tempat logo navbar */
         .logo-nav {
             width: 40px;
             height: 40px;
@@ -206,7 +204,7 @@
             font-weight: bold;
         }
 
-        /* === 3.4 DIVISI (Program Peminatan) === */
+        /* === 3.4 DIVISI === */
         .cards-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -312,7 +310,7 @@
             margin-bottom: 20px;
         }
 
-        /* === RESPONSIVE (HP & Tablet) === */
+        /* === RESPONSIVE === */
         @media (max-width: 768px) {
             nav {
                 flex-direction: column;
@@ -340,10 +338,8 @@
 </head>
 <body>
 
-    <!-- 3.1 HEADER / NAVBAR -->
     <nav>
         <div class="logo-container">
-            <!-- Ganti elemen ini dengan tag <img> untuk logo asli -->
             <div class="logo-nav">LOGO</div>
             IT Club Smancis
         </div>
@@ -355,7 +351,6 @@
         </div>
     </nav>
 
-    <!-- 3.2 HERO SECTION -->
     <section id="beranda">
         <div class="hero-text">
             <h1>Open Recruitment<br><span>IT Club Smancis</span></h1>
@@ -363,12 +358,10 @@
             <a href="#daftar" class="btn-cta">Daftar Sekarang</a>
         </div>
         <div class="hero-image">
-            <!-- Ganti tulisan ini dengan tag <img> logomu -->
             [ Gambar Logo Besar ]
         </div>
     </section>
 
-    <!-- 3.3 TENTANG KAMI & VISI MISI -->
     <section id="tentang">
         <h2 class="section-title">Tentang IT Club</h2>
         <div class="about-grid">
@@ -388,7 +381,6 @@
         </div>
     </section>
 
-    <!-- 3.4 DIVISI -->
     <section id="divisi">
         <h2 class="section-title">Program Peminatan</h2>
         <div class="cards-container">
@@ -410,11 +402,9 @@
         </div>
     </section>
 
-    <!-- 3.5 FORMULIR PENDAFTARAN -->
     <section id="daftar">
         <h2 class="section-title">Formulir Pendaftaran</h2>
         
-        <!-- Form Area -->
         <div class="form-container" id="form-area">
             <form id="recruitment-form">
                 <div class="form-group">
@@ -424,12 +414,7 @@
                 
                 <div class="form-group">
                     <label>Kelas</label>
-                    <select class="form-control" required>
-                        <option value="">-- Pilih Kelas --</option>
-                        <option value="X">Kelas X</option>
-                        <option value="XI">Kelas XI</option>
-                        <option value="XII">Kelas XII</option>
-                    </select>
+                    <input type="text" class="form-control" required placeholder="Contoh: X IPA 1 / Fase E 1">
                 </div>
 
                 <div class="form-group">
@@ -455,16 +440,13 @@
             </form>
         </div>
 
-        <!-- Pesan Sukses (Tersembunyi secara default) -->
         <div class="form-container" id="success-message">
             <h2>Pendaftaran Berhasil! 🎉</h2>
             <p style="margin-bottom: 25px;">Selamat bergabung calon anggota IT Club Smancis. Langkah selanjutnya adalah bergabung ke grup komunikasi resmi panitia.</p>
-            <!-- Ganti href dengan link grup WhatsApp/Telegram panitia yang asli -->
             <a href="https://chat.whatsapp.com/xxxxxx" target="_blank" class="btn-cta">Gabung Grup Chat Sekarang</a>
         </div>
     </section>
 
-    <!-- 3.6 FOOTER -->
     <footer>
         <div class="footer-content">
             <h3 style="color: var(--accent-color); margin-bottom: 10px;">IT Club SMA Negeri 1 Cisayong</h3>
@@ -473,14 +455,10 @@
         <p style="font-size: 0.9rem; opacity: 0.7;">&copy; 2026 IT Club SMA Negeri 1 Cisayong. All rights reserved.</p>
     </footer>
 
-    <!-- JAVASCRIPT UNTUK ALUR LANJUTAN (Validasi & Pesan Sukses) -->
     <script>
         document.getElementById('recruitment-form').addEventListener('submit', function(e) {
-            e.preventDefault(); // Mencegah reload halaman
+            e.preventDefault(); 
             
-            // Logika menyimpan data ke database biasanya diletakkan di sini.
-            
-            // Menyembunyikan form dan memunculkan pesan sukses (Redirect Otomatis)
             document.getElementById('form-area').style.display = 'none';
             document.getElementById('success-message').style.display = 'block';
         });
