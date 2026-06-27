@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - IT Club Smancis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Poppins', sans-serif; } </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen p-8">
+
+    <div id="content" class="hidden max-w-7xl mx-auto">
+        <div class="flex justify-between items-center mb-8 border-b border-gray-700 pb-4">
+            <h1 class="text-3xl font-bold text-[#00e5ff]">Dasbor Pendaftar IT Club</h1>
+            <div class="text-gray-400">Total Pendaftar: <span id="totalData" class="text-white font-bold text-xl">0</span></div>
+        </div>
+
+        <div class="overflow-x-auto rounded-lg shadow-lg border border-gray-700">
+            <table class="w-full text-left text-sm text-gray-300">
+                <thead class="bg-gray-800 text-gray-100 uppercase">
+                    <tr>
+                        <th class="px-6 py-4">Waktu</th>
+                        <th class="px-6 py-4">Nama</th>
+                        <th class="px-6 py-4">Kelas</th>
+                        <th class="px-6 py-4">Divisi</th>
+                        <th class="px-6 py-4">Alasan Masuk</th>
+                        <th class="px-6 py-4">Alasan Divisi</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody" class="bg-gray-800/50 divide-y divide-gray-700">
+                    <!-- Data dari Supabase akan dirender di sini -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Kemanan sederhana menggunakan Javascript prompt
+        const adminPassword = "itclubsmancis"; // Ganti dengan password yang diinginkan
+        const inputPass = prompt("Masukkan Password Admin:");
+        
+        if(inputPass !== adminPassword) {
+            document.body.innerHTML = "<h2 class='text-center mt-20 text-red-500 text-2xl'>Akses Ditolak. Password Salah.</h2>";
+        } else {
+            document.getElementById('content').classList.remove('hidden');
+            loadData();
+        }
+
+        // MASUKKAN KREDENSIAL SUPABASE KAMU DI SINI
+        const SUPABASE_URL = 'https://kjvakifixerikcloxxkd.supabase.co/rest/v1/pendaftar';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtqdmFraWZpeGVyaWtjbG94eGtkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0OTYwNzIsImV4cCI6MjA5ODA3MjA3Mn0.JwXBX5JLDpSPOpddiUqLop_szZDgCx37j-Gv0RuVCKk';
+        
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function loadData() {
+            // Ambil semua data dari tabel pendaftar, diurutkan dari yang terbaru
+            const { data, error } = await supabase
+                .from('pendaftar')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                alert('Gagal mengambil data: ' + error.message);
+                return;
+            }
+
+            document.getElementById('totalData').innerText = data.length;
+            const tbody = document.getElementById('tableBody');
+            
+            data.forEach(row => {
+                const date = new Date(row.created_at).toLocaleString('id-ID');
+                
+                // Menentukan warna badge berdasarkan divisi
+                let divColor = 'bg-gray-500';
+                if(row.divisi === 'Hardware') divColor = 'bg-orange-500';
+                if(row.divisi === 'Software') divColor = 'bg-blue-500';
+                if(row.divisi === 'Multimedia') divColor = 'bg-purple-500';
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">${date}</td>
+                    <td class="px-6 py-4 font-semibold text-white">${row.nama}</td>
+                    <td class="px-6 py-4">${row.kelas}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold text-white ${divColor}">${row.divisi}</span>
+                    </td>
+                    <td class="px-6 py-4 max-w-xs truncate" title="${row.alasan_masuk}">${row.alasan_masuk}</td>
+                    <td class="px-6 py-4 max-w-xs truncate" title="${row.alasan_divisi}">${row.alasan_divisi}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    </script>
+</body>
+</html>

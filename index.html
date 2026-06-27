@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Recruitment - IT Club Smancis</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#0b132b',
+                        cyan: '#00e5ff',
+                        cyanHover: '#00b8cc'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #0b132b; color: white; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .glow-card:hover { box-shadow: 0 0 15px rgba(0, 229, 255, 0.5); transform: translateY(-5px); transition: all 0.3s; }
+        /* Placeholder pattern sirkuit (menggunakan radial gradient sederhana sebagai simulasi) */
+        .bg-pattern { background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px); background-size: 20px 20px; }
+    </style>
+</head>
+<body class="bg-pattern antialiased font-sans">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass top-0">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <!-- Ganti src dengan URL logo aslimu -->
+                <div class="w-10 h-10 bg-cyan rounded-full flex items-center justify-center font-bold text-navy">ITC</div>
+                <span class="font-bold text-lg tracking-wider">IT CLUB SMANCIS</span>
+            </div>
+            <a href="#daftar" class="bg-cyan text-navy px-5 py-2 rounded-full font-semibold hover:bg-cyanHover transition">Daftar</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col justify-center items-center text-center px-4 pt-20">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 uppercase tracking-tight">Open Recruitment <br><span class="text-cyan">IT Club Smancis</span></h1>
+        <p class="text-lg md:text-xl text-gray-300 mb-8">Membangun Generasi Digital Masa Depan.</p>
+        <a href="#daftar" class="bg-cyan text-navy px-8 py-3 text-lg rounded-full font-bold hover:shadow-[0_0_20px_rgba(0,229,255,0.7)] transition duration-300">Daftar Sekarang</a>
+    </section>
+
+    <!-- Divisi Section -->
+    <section class="max-w-6xl mx-auto px-4 py-20">
+        <h2 class="text-3xl font-bold text-center mb-12">Pilih Divisimu</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-[#152040] p-6 rounded-xl border border-gray-700 glow-card">
+                <div class="text-4xl mb-4">🖥️</div>
+                <h3 class="text-xl font-bold text-cyan mb-2">Hardware</h3>
+                <p class="text-gray-400 text-sm">Fokus pada perakitan komputer, maintenance, troubleshooting, dan dasar networking.</p>
+            </div>
+            <div class="bg-[#152040] p-6 rounded-xl border border-gray-700 glow-card">
+                <div class="text-4xl mb-4">💻</div>
+                <h3 class="text-xl font-bold text-cyan mb-2">Software</h3>
+                <p class="text-gray-400 text-sm">Mengasah logika coding, dasar pemrograman, pembuatan algoritma, dan Web Development.</p>
+            </div>
+            <div class="bg-[#152040] p-6 rounded-xl border border-gray-700 glow-card">
+                <div class="text-4xl mb-4">🎨</div>
+                <h3 class="text-xl font-bold text-cyan mb-2">Multimedia</h3>
+                <p class="text-gray-400 text-sm">Berekspresi visual lewat desain grafis, video editing, animasi, dan perancangan UI/UX.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Pendaftaran -->
+    <section id="daftar" class="max-w-3xl mx-auto px-4 py-20">
+        <div class="bg-[#152040] p-8 rounded-2xl border border-gray-700 shadow-2xl">
+            <h2 class="text-2xl font-bold mb-6 text-center text-cyan">Formulir Pendaftaran</h2>
+            
+            <form id="regForm" class="space-y-5">
+                <div>
+                    <label class="block mb-2 text-sm text-gray-300">Nama Lengkap</label>
+                    <input type="text" id="nama" required class="w-full bg-[#0b132b] border border-gray-600 rounded-lg p-3 text-white focus:outline-none focus:border-cyan">
+                </div>
+                
+                <div>
+                    <label class="block mb-2 text-sm text-gray-300">Kelas</label>
+                    <select id="kelas" required class="w-full bg-[#0b132b] border border-gray-600 rounded-lg p-3 text-white focus:outline-none focus:border-cyan">
+                        <option value="">Pilih Kelas</option>
+                        <option value="X-1">X-1</option>
+                        <option value="X-2">X-2</option>
+                        <option value="XI IPA 1">XI IPA 1</option>
+                        <option value="XI IPS 1">XI IPS 1</option>
+                        <!-- Tambahkan kelas lain sesuai kebutuhan -->
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block mb-2 text-sm text-gray-300">Alasan Masuk IT Club</label>
+                    <textarea id="alasanMasuk" required rows="3" class="w-full bg-[#0b132b] border border-gray-600 rounded-lg p-3 text-white focus:outline-none focus:border-cyan"></textarea>
+                </div>
+
+                <div>
+                    <label class="block mb-2 text-sm text-gray-300">Divisi yang Diinginkan</label>
+                    <div class="flex gap-4">
+                        <label class="flex items-center gap-2"><input type="radio" name="divisi" value="Hardware" required> Hardware</label>
+                        <label class="flex items-center gap-2"><input type="radio" name="divisi" value="Software" required> Software</label>
+                        <label class="flex items-center gap-2"><input type="radio" name="divisi" value="Multimedia" required> Multimedia</label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block mb-2 text-sm text-gray-300">Alasan Memilih Divisi Tersebut</label>
+                    <textarea id="alasanDivisi" required rows="3" class="w-full bg-[#0b132b] border border-gray-600 rounded-lg p-3 text-white focus:outline-none focus:border-cyan"></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn" class="w-full bg-cyan text-navy font-bold py-3 rounded-lg hover:bg-cyanHover transition">Kirim Pendaftaran</button>
+            </form>
+
+            <!-- Area Sukses (Tersembunyi secara default) -->
+            <div id="successArea" class="hidden text-center py-8">
+                <div class="text-5xl mb-4">✅</div>
+                <h3 class="text-2xl font-bold text-cyan mb-2">Pendaftaran Berhasil!</h3>
+                <p class="text-gray-300 mb-6">Selamat bergabung calon anggota IT Club Smancis. Silakan masuk ke grup WhatsApp panitia.</p>
+                <a href="https://chat.whatsapp.com/GANTIDENGANLINKGRUPMU" target="_blank" class="inline-block bg-green-500 text-white px-8 py-3 rounded-full font-bold hover:bg-green-600 transition">Gabung Grup Chat Sekarang</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-gray-500 text-sm border-t border-gray-800">
+        &copy; 2026 IT Club SMA Negeri 1 Cisayong. All rights reserved.
+    </footer>
+
+    <!-- Logika Supabase -->
+    <script>
+        // MASUKKAN KREDENSIAL SUPABASE KAMU DI SINI
+        const SUPABASE_URL = 'https://GANTI-DENGAN-PROJECT-URL-KAMU.supabase.co';
+        const SUPABASE_ANON_KEY = 'GANTI-DENGAN-ANON-KEY-KAMU';
+        
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        document.getElementById('regForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = 'Mengirim...';
+            btn.disabled = true;
+
+            const data = {
+                nama: document.getElementById('nama').value,
+                kelas: document.getElementById('kelas').value,
+                alasan_masuk: document.getElementById('alasanMasuk').value,
+                divisi: document.querySelector('input[name="divisi"]:checked').value,
+                alasan_divisi: document.getElementById('alasanDivisi').value
+            };
+
+            // Insert ke tabel 'pendaftar' di Supabase
+            const { error } = await supabase.from('pendaftar').insert([data]);
+
+            if (error) {
+                alert('Terjadi kesalahan: ' + error.message);
+                btn.innerText = 'Kirim Pendaftaran';
+                btn.disabled = false;
+            } else {
+                document.getElementById('regForm').classList.add('hidden');
+                document.getElementById('successArea').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
